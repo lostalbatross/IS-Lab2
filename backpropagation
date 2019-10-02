@@ -1,0 +1,67 @@
+%training set
+x=0.1:1/22:1;
+
+%expected output
+y=(1+0.6*sin(2pix/0.7))+0.3*(sin(2*pi*x))/2;
+
+%1 Initializing of network parameters
+w11_1 = randn(1);
+w21_1 = randn(1);
+w31_1 = randn(1);
+w41_1 = randn(1);
+w51_1 = randn(1);
+
+b1_1 = randn(1);
+b2_1 = randn(1);
+b3_1 = randn(1);
+b4_1 = randn(1);
+b5_1 = randn(1);
+
+w11_2 = randn(1);
+w12_2 = randn(1);
+w13_2 = randn(1);
+w14_2 = randn(1);
+w15_2 = randn(1);
+
+b1_2 = randn(1);
+
+%2 Estimating the output using first example of x as an input
+v1_1(1)=x(1)*w11_1+b1_1;
+y1_1(1)=1/(1_exp(-v1_1(1)));
+
+v2_1(1)=x(1)*w21_1+b2_1;
+y2_1(1)=1/(1_exp(-v2_1(1)));
+
+v3_1(1)=x(1)*w31_1+b3_1;
+y3_1(1)=1/(1_exp(-v3_1(1)));
+
+v4_1(1)=x(1)*w41_1+b4_1;
+y4_1(1)=1/(1_exp(-v4_1(1)));
+
+v5_1(1)=x(1)*w51_1+b5_1;
+y5_1(1)=1/(1_exp(-v5_1(1)));
+
+%3 Estimate output of the next layer
+v1_2(1)=y1_1(1)*w11_2+y2_1(1)*w12_2+y3_1(1)*w13_2+y4_1(1)*w14_2+y5_1(1)*w15_2+b1_2;
+y1(1)=v1_2(1);
+
+
+%4 Estimate the error for each output neuron
+ e(1)=d(1)-y1(1); %create a d set
+ 
+%5 Update the parameters of the last layer (cost function needed)
+%let cost function be E=(e^2)/2
+E=(e^2)/2;
+n=0.12;
+
+%changes of all random parameters affect the cost function
+w11_2(2)=w11_2(1)+n*e(1)*y(1);
+w12_2(2)=w12_2(1)+n*e(1)*y(1);
+w13_2(2)=w13_2(1)+n*e(1)*y(1);
+w14_2(2)=w14_2(1)+n*e(1)*y(1);
+w15_2(2)=w15_2(1)+n*e(1)*y(1);
+b1_2(2)=b1_2(1)+n*e(1);
+
+%6 Update parameters of the hidden layer
+%w11_2(2)=w11_1(1)+n*v1_2(1)*(e(1)*w11_2(1)+e(1)*w12_2(1)+e(1)*w13_2(1)+e(1)*w14_2(1)+e(1)*w15_2(1))*x(1);
+%FOR WHICH NEURON A MUST UPDATE THE PARAMETERS?FOR SECOND LAYER OF ALSO FOR FIRST?
