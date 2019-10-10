@@ -50,32 +50,30 @@ y1(1)=v1_2(1);
  e(1)=d(1)-y1(1); %create a d set or our y is what we expect?
  
 %5 Update the parameters of the last layer (cost function needed)
-%let cost function be E=(e^2)/2
-E=(e^2)/2;
+%let cost function be E=((e(1))^2)/2
+E=((e(1))^2)/2;
 n=0.12;
 
-%changes of all random parameters affect the cost function
-w11_2(2)=w11_2(1)+n*e(1)*y(1);
-w12_2(2)=w12_2(1)+n*e(1)*y(1);
-w13_2(2)=w13_2(1)+n*e(1)*y(1);
-w14_2(2)=w14_2(1)+n*e(1)*y(1);
-w15_2(2)=w15_2(1)+n*e(1)*y(1);
+%6 Update parameters of the output layer
+
+w11_2(2)=w11_2(1)+n*e(1)*y1_1(1); %where (e(1))- derivative of linear activation function, so we got the 1 after multiplication
+w12_2(2)=w12_2(1)+n*e(1)*y2_1(1);
+w13_2(2)=w13_2(1)+n*e(1)*y3_1(1);
+w14_2(2)=w14_2(1)+n*e(1)*y4_1(1);
+w15_2(2)=w15_2(1)+n*e(1)*y5_1(1);
 b1_2(2)=b1_2(1)+n*e(1);
 
-%6 Update parameters of the output layer
-%w11_2(2)=w11_1(1)+n*v1_2(1)*(e(1)*w11_2(1)+e(1)*w12_2(1)+e(1)*w13_2(1)+e(1)*w14_2(1)+e(1)*w15_2(1))*x(1);
-
-w11_2(2)=w11_2(1)+n*v1_2(1)*e(1)*y1_1(1);
-w12_2(2)=w12_2(1)+n*v1_2(1)*e(1)*y2_1(1);
-w13_2(2)=w13_2(1)+n*v1_2(1)*e(1)*y3_1(1);
-w14_2(2)=w14_2(1)+n*v1_2(1)*e(1)*y4_1(1);
-w15_2(2)=w15_2(1)+n*v1_2(1)*e(1)*y5_1(1);
-
 %7 Update parameters of the hidden layer
+%here we should find the derivative of activation function
 
-w11_1(2)=w11_1(1)+n*v1_2(1)*e(1)*x(1); %посчитать бету для хидден слоя и пересмотреть изменения рандомных параметров для кост функции
-w21_1(2)=w21_1(1)+n*v1_2(1)*e(1)*x(1);
-w31_1(2)=w31_1(1)+n*v1_2(1)*e(1)*x(1);
-w41_1(2)=w41_1(1)+n*v1_2(1)*e(1)*x(1);
-w51_1(2)=w51_1(1)+n*v1_2(1)*e(1)*x(1);
+w11_1(2)=w11_1(1)+n*(1/1+exp(-v1_1(1))*(1-(1+exp(-v1_1(1)))))*e(1)*x(1); %here is derivative of sigmoidal activation function
+w21_1(2)=w21_1(1)+n*(1/1+exp(-v2_1(1))*(1-(1+exp(-v2_1(1)))))*e(1)*x(1);
+w31_1(2)=w31_1(1)+n*(1/1+exp(-v3_1(1))*(1-(1+exp(-v3_1(1)))))*e(1)*x(1);
+w41_1(2)=w41_1(1)+n*(1/1+exp(-v4_1(1))*(1-(1+exp(-v4_1(1)))))*e(1)*x(1);
+w51_1(2)=w51_1(1)+n*(1/1+exp(-v5_1(1))*(1-(1+exp(-v5_1(1)))))*e(1)*x(1);
+b1_1(2)=b1_1(1)+n;
+b2_1(2)=b2_1(1)+n;
+b3_1(2)=b3_1(1)+n;
+b4_1(2)=b4_1(1)+n;
+b5_1(2)=b5_1(1)+n;
 
